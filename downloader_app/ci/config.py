@@ -1,6 +1,5 @@
 import json
 import os
-import sys
 
 import yaml
 from dotenv import load_dotenv

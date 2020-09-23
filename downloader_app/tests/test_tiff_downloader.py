@@ -2,7 +2,6 @@ import os
 import sys
 
 import pandas as pd
-import pytest
 import requests
 from netCDF4 import Dataset
 
@@ -28,6 +27,7 @@ source_url = {
     'LandDAAC-v6-view_zenith_angle': "http://iridl.ldeo.columbia.edu/SOURCES/.USGS/.LandDAAC/.MODIS/.version_006/"
     ".SSA/.view_zenith_angle/",
 }
+
 
 # Get source_url status code.
 def test_get_url():
