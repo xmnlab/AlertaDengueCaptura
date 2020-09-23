@@ -31,7 +31,7 @@ configure_ci_downloader_app:
 flake8_downloader_app:
 	flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
 
-test_downloader_app: deploy_downloader_app
+test_downloader_app:
 	pytest downloader_app/ -vv
 
 clean:
