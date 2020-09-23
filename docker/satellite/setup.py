@@ -9,7 +9,7 @@ def read(filename):
 
 
 setup(
-    name="Downloader_app",
+    name="satellite_app",
     version="0.2.0",
     author="fccoelho",
     author_email="fccoelho@gmail.com",

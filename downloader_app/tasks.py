@@ -1,19 +1,17 @@
-import os
-import sys
-
 from celery.utils.log import get_task_logger
 from dotenv import load_dotenv
 
 from downloader_app import tiff_downloader as td
 from downloader_app.celeryapp import app
-from downloader_app.settings import BASE_DIR
-
-# LOCAL = os.path.join(BASE_DIR, "downloader_app")
-# sys.path.insert(0, LOCAL)
 
 load_dotenv()
 
-logger = get_task_logger("Downloader_app")
+logger = get_task_logger("downloader_app")
+
+
+@app.task
+def add(x, y):
+    return x + y
 
 
 @app.task
