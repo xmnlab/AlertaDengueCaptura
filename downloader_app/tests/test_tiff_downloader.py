@@ -93,7 +93,7 @@ def test_LandDAAC_v5_night():
         # Open the netCDF file and read it.
         nc = Dataset(nc_filename, 'r')
     except OSError:
-        print('{} failed in process {}'.format(nc_filename, i))
+        print('{} failed in process {}'.format(nc_filename))
 
     nc_model = nc.data_model
     assert nc_model == "NETCDF4", "The {} format is not correct".format(

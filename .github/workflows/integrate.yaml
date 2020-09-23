@@ -25,7 +25,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: goanpeca/setup-miniconda@v1
+    - uses: conda-incubator/setup-miniconda@v1
       with:
         auto-update-conda: true
         python-version: ${{ matrix.python-version }}
@@ -48,7 +48,7 @@ jobs:
       run: |
         make -f docker/crawlclima/Makefile test_crawlclima
 
-  satellite_app:
+  downloader_app:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -61,7 +61,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: goanpeca/setup-miniconda@v1
+    - uses: conda-incubator/setup-miniconda@v1
       with:
         auto-update-conda: true
         python-version: ${{ matrix.python-version }}
@@ -82,9 +82,9 @@ jobs:
     - name: Lint with flake8
       shell: bash -l {0}
       run: |
-        make -f docker/satellite/Makefile flake8_satellite_app
+        make -f docker/satellite/Makefile flake8_downloader_app
 
-    - name: Configure credentials to satellite_app
+    - name: Configure credentials to downloader_app
       shell: bash -l {0}
       env:
         CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
@@ -93,15 +93,20 @@ jobs:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
       run: |
-        make -f docker/satellite/Makefile configure_ci_satellite_app
+        make -f docker/satellite/Makefile configure_ci_downloader_app
         mkdir -p /home/runner/.config/earthengine/
         cp credentials /home/runner/.config/earthengine/credentials
         cat credentials
         echo $CLIENT_SECRET
-        cat satellite_app/mycreds.txt
+        cat downloader_app/mycreds.txt
 
-    - name: Tests satellite_app
+    - name: Tests downloader_app
       shell: bash -l {0}
       run: |
         ls -la
-        make -f docker/satellite/Makefile test_satellite_app
+        make -f docker/satellite/Makefile test_downloader_app
+
+    - name: Make deploy downloader_app
+      shell: bash -l {0}
+      run: |
+        make -f docker/satellite/Makefile deploy_downloader_app

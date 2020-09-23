@@ -7,29 +7,29 @@ export
 compose_cmd = docker-compose -f docker/satellite/downloader-compose.yml --env-file docker/satellite/.env
 
 
-build_satellite_app:
+build_downloader_app:
 	$(compose_cmd) build
 
-deploy_satellite_app: build_satellite_app
+deploy_downloader_app: build_downloader_app
 	$(compose_cmd) up
 
-stop_satellite_app:
+stop_downloader_app:
 	$(compose_cmd) stop
 
 install_alertadenguecaptura:
 	pip install -e .['develop']
 
-configure_ci_satellite_app:
+configure_ci_downloader_app:
 	bash .github/scripts/update_credentials_environ.sh
-	python satellite_app/ci/config.py
+	python downloader_app/ci/config.py
 
 # TESTS
 
-flake8_satellite_app:
+flake8_downloader_app:
 	flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
 
-test_satellite_app:
-	pytest satellite_app/ -vv
+test_downloader_app:
+	pytest downloader_app/ -vv
 
 clean:
 	@find ./ -name '*.pyc' -exec rm -f {} \;
