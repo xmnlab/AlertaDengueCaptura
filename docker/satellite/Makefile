@@ -7,8 +7,11 @@ export
 compose_cmd = docker-compose -f docker/satellite/downloader-compose.yml --env-file docker/satellite/.env
 
 
+SERVICES_SATELLITE :=
+
+
 build_downloader_app:
-	$(compose_cmd) build
+	$(compose_cmd) build ${SERVICES_SATELLITE}
 
 deploy_downloader_app: build_downloader_app
 	$(compose_cmd) up
@@ -29,10 +32,11 @@ flake8_downloader_app:
 	flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
 
 test_downloader_app:
-	pytest downloader_app/ -vv
+	pytest downloader_app/ -vv ${SERVICES_SATELLITE}
 
 clean:
 	@find ./ -name '*.pyc' -exec rm -f {} \;
+	@find ./ -name '*.pyo' -exec rm -f {} \;
 	@find ./ -name '*~' -exec rm -f {} \;
 	rm -rf .cache
 	rm -rf build

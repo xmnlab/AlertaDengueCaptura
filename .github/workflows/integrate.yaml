@@ -100,13 +100,13 @@ jobs:
         echo $CLIENT_SECRET
         cat downloader_app/mycreds.txt
 
-    - name: Tests downloader_app
-      shell: bash -l {0}
-      run: |
-        ls -la
-        make -f docker/satellite/Makefile test_downloader_app
-
     - name: Make deploy downloader_app
       shell: bash -l {0}
       run: |
         make -f docker/satellite/Makefile deploy_downloader_app
+
+    - name: Tests downloader_app
+      shell: bash -l {0}
+      run: |
+        pwd
+        make -f docker/satellite/Makefile test_downloader_app SERVICES_SATELLITE=capture_worker
