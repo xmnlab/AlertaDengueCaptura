@@ -14,7 +14,7 @@ build_downloader_app:
 	$(compose_cmd) build ${SERVICES_SATELLITE}
 
 deploy_downloader_app: build_downloader_app
-	$(compose_cmd) up
+	$(compose_cmd) up -d
 
 stop_downloader_app:
 	$(compose_cmd) stop
