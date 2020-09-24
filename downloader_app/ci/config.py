@@ -8,22 +8,20 @@ from downloader_app.settings import BASE_DIR
 
 load_dotenv()
 
-'''
-EE_CREDENTIAL_FILE = os.path.join(
-    BASE_DIR, 'downloader_app', 'alertadenguecaptura-7ec421287640.json'
-)
 
-EE_SERVICE_ACCOUNT = (
-    'alertadengue-898@alertadenguecaptura.iam.gserviceaccount.com'
-)
-'''
 DOWNLADER_PATH = os.path.join(BASE_DIR, 'downloader_app')
 
 SETTINGS_PATH = os.path.join(DOWNLADER_PATH, 'settings.yaml')
 MYCREDS_PATH = os.path.join(DOWNLADER_PATH, 'mycreds.txt')
 SECRETS_PATH = os.path.join(DOWNLADER_PATH, 'client_secrets.json')
+CREADENTIALS_PATH = os.path.join(DOWNLADER_PATH, 'credentials.json')
 TOKEN_PATH = os.path.join(BASE_DIR, 'credentials')
 
+if not os.path.exists(CREADENTIALS_PATH):
+    with open(os.path.join(SETTINGS_PATH), "w") as f:
+        yaml.dump(f, default_flow_style=False)
+
+    print("The credentials.json file has been created!")
 
 # create yaml file
 if not os.path.exists(SETTINGS_PATH):
@@ -81,7 +79,7 @@ if not os.path.exists(MYCREDS_PATH):
         "client_id": os.getenv("CLIENT_ID"),
         "client_secret": os.getenv("CLIENT_SECRET"),
         "refresh_token": os.getenv("REFRESH_TOKEN"),
-        "token_expiry": "2020-12-31T23:36:20Z",
+        "token_expiry": "2021-12-31T23:36:20Z",
         "token_uri": "https://oauth2.googleapis.com/token",
         "user_agent": "null",
         "revoke_uri": "https://oauth2.googleapis.com/revoke",

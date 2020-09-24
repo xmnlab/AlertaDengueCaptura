@@ -4,9 +4,12 @@ import gzip
 import logging
 import os
 import sys
+
+# import datetime
 import time
 import urllib.request
 from configparser import ConfigParser
+from datetime import datetime as dt
 
 import ee
 import geoviews as gv
@@ -23,6 +26,11 @@ from rasterio.warp import Resampling, reproject
 from sqlalchemy import create_engine
 
 from downloader_app.settings import BASE_DIR
+
+work_dir = os.getcwd()
+route_abs = os.path.dirname(os.path.abspath(work_dir))
+sys.path.insert(0, route_abs)
+
 
 # instantiate
 config = ConfigParser()
@@ -81,6 +89,11 @@ def download_tiffs(source, dates, point1, point2, opt=False):
         will be executed in the program.
     """
 
+    # dates_conv = (lambda x: time.strptime(dates, "%Y-%m-%d").date())
+    # dates = dates_conv(dates)
+
+    dates = [dt.strptime(d, '%Y-%m-%d') for d in dates]
+
     # Extracts input information.
     x1, y1 = point1
     x2, y2 = point2
@@ -92,7 +105,6 @@ def download_tiffs(source, dates, point1, point2, opt=False):
     # Obtains the frequency of source.
     freq = source_freq(source)
     delta = datetime.timedelta(days=freq)
-
     # Download maps by date.
     length = len(dates)
     for l in range(length):
