@@ -8,19 +8,17 @@ from downloader_app.settings import BASE_DIR
 
 load_dotenv()
 
-
 DOWNLADER_PATH = os.path.join(BASE_DIR, 'downloader_app')
-
+CREADENTIALS_PATH = os.path.join(DOWNLADER_PATH, "credentials.json")
 SETTINGS_PATH = os.path.join(DOWNLADER_PATH, 'settings.yaml')
 MYCREDS_PATH = os.path.join(DOWNLADER_PATH, 'mycreds.txt')
 SECRETS_PATH = os.path.join(DOWNLADER_PATH, 'client_secrets.json')
-CREADENTIALS_PATH = os.path.join(DOWNLADER_PATH, 'credentials.json')
 TOKEN_PATH = os.path.join(BASE_DIR, 'credentials')
 
-if not os.path.exists(CREADENTIALS_PATH):
-    with open(os.path.join(SETTINGS_PATH), "w") as f:
-        yaml.dump(f, default_flow_style=False)
 
+# Create the file if it does not exist
+if not os.path.exists(CREADENTIALS_PATH):
+    open(CREADENTIALS_PATH, 'w').close()
     print("The credentials.json file has been created!")
 
 # create yaml file

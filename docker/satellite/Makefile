@@ -24,7 +24,7 @@ install_alertadenguecaptura:
 
 configure_ci_downloader_app:
 	bash .github/scripts/update_credentials_environ.sh
-	python downloader_app/ci/config.py
+	python downloader_app/ci/create_credentials.py
 
 # TESTS
 
